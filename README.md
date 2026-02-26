@@ -12,9 +12,6 @@ Birebir Ders Randevu Sistemi, öğrencilerin öğretmenlerle birebir ders için 
 
 Eğitim Teknolojileri / Randevu Yönetim Sistemi
 
-### Referans Uygulama
-
-[Calendly](https://calendly.com)
 
 ---
 
