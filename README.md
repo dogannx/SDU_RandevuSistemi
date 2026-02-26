@@ -2,7 +2,7 @@
 
 ## Hakkında
 
-![Ürün Görseli](Product.png)
+![Ürün Görseli](..........)
 
 ### Tanım
 
@@ -19,8 +19,8 @@ Eğitim Teknolojileri / Randevu Yönetim Sistemi
 
 | Bağlantı | Adres |
 |---|---|
-| REST API Adresi | api.yazmuh.com |
-| Web Frontend Adresi | frontend.yazmuh.com |
+| REST API Adresi | ........com |
+| Web Frontend Adresi | .............com |
 
 ---
 
