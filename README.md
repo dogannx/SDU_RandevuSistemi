@@ -35,12 +35,7 @@ Eğitim Teknolojileri / Randevu Yönetim Sistemi
 
 | No | Ad Soyad |
 |---|---|
-| 1 | [Grup Üyesi 1] |
-| 2 | [Grup Üyesi 2] |
-| 3 | [Grup Üyesi 3] |
-| 4 | [Grup Üyesi 4] |
-| 5 | [Grup Üyesi 5] |
-| 6 | [Grup Üyesi 6] |
+| 1 | Doğan Coşman |
 
 ---
 
@@ -58,28 +53,8 @@ Proje dokümantasyonuna aşağıdaki linklerden erişebilirsiniz:
 
 ---
 
-## Projeyi Klonlama ve Düzenleme
-
-> **ÖNEMLİ:** Aşağıdaki işlemleri sadece grup lideri veya grup tarafından seçilen bir üye yapmalıdır.
-
-### Adım 1: Repoyu Klonlama
+## Projeyi Klonlama
 
 ```bash
 git clone https://github.com/dogannx/SDU_RandevuSistemi.git
 ```
-
-### Adım 2: Değişiklikleri Kaydetme
-
-```bash
-git add .
-git commit -m "Proje bilgileri güncellendi"
-git push origin main
-```
-
----
-
-## Notlar
-
-- **Klasör yapısı:** Her grup üyesi kendi klasörünü oluşturmalıdır. Format: `[İsim-Soyisim]` (örn: `Ali-Tutar/`)
-- Her grup üyesinin tüm dosyaları (gereksinimler, REST API görevleri, frontend görevleri vb.) kendi klasöründe bulunmalıdır.
-- Tüm placeholder'ları kendi bilgilerinizle değiştirin.
