@@ -2,7 +2,7 @@
 
 ## Proje Hakkında
 
-<!-- Ürün Tanıtım Görseli buraya eklenecek -->
+![Ürün Görseli](Product.png)
 
 ### Proje Tanımı
 
@@ -49,12 +49,12 @@ Eğitim Teknolojileri / Randevu Yönetim Sistemi
 Proje dokümantasyonuna aşağıdaki linklerden erişebilirsiniz:
 
 - [Gereksinim Analizi](Gereksinim-Analizi.md)
-- [REST API Tasarımı](REST-API-Tasarimi.md)
-- [REST API](REST-API.md)
-- [Web Front-End](Web-Frontend.md)
-- [Mobil Front-End](Mobil-Frontend.md)
-- [Mobil Backend](Mobil-Backend.md)
-- [Video Sunum](#)
+- [REST API Tasarımı](API-Tasarimi.md)
+- [REST API](Rest-API.md)
+- [Web Front-End](WebFrontEnd.md)
+- [Mobil Front-End](MobilFrontEnd.md)
+- [Mobil Backend](MobilBackEnd.md)
+- [Video Sunum](Sunum.md)
 
 ---
 
@@ -80,7 +80,6 @@ git push origin main
 
 ## Notlar
 
-- **Repo adı:** `SDU_RandevuSistemi`
 - **Klasör yapısı:** Her grup üyesi kendi klasörünü oluşturmalıdır. Format: `[İsim-Soyisim]` (örn: `Ali-Tutar/`)
 - Her grup üyesinin tüm dosyaları (gereksinimler, REST API görevleri, frontend görevleri vb.) kendi klasöründe bulunmalıdır.
 - Tüm placeholder'ları kendi bilgilerinizle değiştirin.
