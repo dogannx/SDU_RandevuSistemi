@@ -1,18 +1,6 @@
 # Gereksinim Analizi
 
-Birebir Ders Randevu Sistemi için tüm gereksinimler aşağıda listelenmiştir. Her gereksinim bir API metoduna karşılık gelecek şekilde tanımlanmıştır.
-
-## Gereksinimlerde Uyulması Gereken Kurallar
-
-1. **İsimler anlamlı olmalı:** Gereksinim isimleri net ve anlaşılır olmalıdır.
-2. **Açıklamalar net olmalı:** Her gereksinimin açıklaması açık ve anlaşılır şekilde yazılmalıdır.
-3. **Açıklamalar teknik jargon ve kısaltmalar içermemeli:** Gereksinim açıklamaları herkesin anlayabileceği basit bir dille yazılmalıdır.
-4. **Gereksinim isimleri çok uzun olmamalı ve bir eylem bildirmeli:**
-   - İsimler kısa ve öz olmalıdır
-   - Bir eylem fiili içermelidir
-   - Örnekler: "Kayıt Olma", "Giriş Yapma", "Profil Güncelleme", "Hesap Silme"
-
-# Tüm Gereksinimler
+Birebir Ders Randevu Sistemi, öğrencilerin öğretmenlerle birebir ders randevusu alabildiği bir platformdur. Aşağıda sistemin desteklediği 10 fonksiyonel gereksinim listelenmiştir.
 
 | No | Gereksinim Adı | Açıklama | İşlem Türü |
 |---|---|---|---|
@@ -27,6 +15,6 @@ Birebir Ders Randevu Sistemi için tüm gereksinimler aşağıda listelenmiştir
 | G9 | Randevu İptal Etme | Öğrenci, artık gitmek istemediği bir randevuyu sistemden iptal edebilmelidir. | DELETE |
 | G10 | Randevu Önerisi Alma | Öğrenci, haftalık boş zamanlarını ve ders adını seçerek kendisi için en uygun randevu saatleri için yapay zekâ tabanlı öneri alabilmelidir. | POST |
 
-# Gereksinim Dağılımı
+## Gereksinim Dosyası
 
-1. [Doğan Coşman'ın Gereksinimleri](Dogan-Cosman/Dogan-Cosman-Gereksinimler.md)
+- [Doğan Coşman'ın Gereksinimleri](Dogan-Cosman/Dogan-Cosman-Gereksinimler.md)

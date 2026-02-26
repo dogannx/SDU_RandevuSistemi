@@ -1,10 +1,10 @@
 # Birebir Ders Randevu Sistemi
 
-## Proje Hakkında
+## Hakkında
 
 ![Ürün Görseli](Product.png)
 
-### Proje Tanımı
+### Tanım
 
 Birebir Ders Randevu Sistemi, öğrencilerin öğretmenlerle birebir ders için kolayca randevu almasını sağlayan, kullanıcı dostu bir web platformudur. Öğrenciler sisteme kayıt olup giriş yaptıktan sonra tüm öğretmenleri listeleyebilir, uygun saatte randevu oluşturabilir, mevcut randevularını güncelleyebilir veya iptal edebilirler. Bunun yanı sıra yapay zekâ destekli öneri modülü sayesinde öğrenci, haftalık boş zamanlarını ve almak istediği ders adını girerek sisteme en uygun randevu saatlerini otomatik olarak önerebilmektedir. Böylece hem öğrencilerin hem de öğretmenlerin zamanını verimli kullanması hedeflenmektedir.
 
@@ -29,7 +29,7 @@ Eğitim Teknolojileri / Randevu Yönetim Sistemi
 
 ## Proje Ekibi
 
-**Grup Adı:** SDU Randevu Grubu
+**Grup Adı:** DC Software
 
 ### Ekip Üyeleri
 
