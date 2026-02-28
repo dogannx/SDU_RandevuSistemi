@@ -2,7 +2,7 @@
 
 ## Hakkında
 
-![Ürün Görseli](..........)
+![Ürün Görseli](Product.png)
 
 ### Tanım
 
