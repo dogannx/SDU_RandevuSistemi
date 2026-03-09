@@ -1,0 +1,800 @@
+openapi: 3.0.3
+info:
+  title: Birebir Ders Randevu Sistemi API
+  description: |
+    Birebir Ders Randevu Sistemi için RESTful API.
+
+    ## Özellikler
+    - Öğrenci kaydı ve girişi
+    - Öğrenci ve öğretmen listeleme
+    - Randevu oluşturma, listeleme, güncelleme ve iptal etme
+    - Yapay zekâ tabanlı randevu önerisi
+    - JWT tabanlı kimlik doğrulama
+  version: 1.0.0
+  contact:
+    name: Doğan Coşman
+    email: dogan@example.com
+
+servers:
+  - url: https://api.randevu.com/v1
+    description: Production sunucusu
+  - url: https://staging-api.randevu.com/v1
+    description: Staging sunucusu
+  - url: http://localhost:3000/v1
+    description: Yerel geliştirme sunucusu
+
+tags:
+  - name: auth
+    description: Kimlik doğrulama işlemleri
+  - name: students
+    description: Öğrenci yönetimi işlemleri
+  - name: teachers
+    description: Öğretmen listeleme işlemleri
+  - name: appointments
+    description: Randevu yönetimi işlemleri
+
+paths:
+
+  # ──────────────────────────────────────────────
+  # AUTH
+  # ──────────────────────────────────────────────
+
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: G1 — Kayıt Olma
+      description: Öğrenci, sisteme adını, e-postasını ve şifresini girerek yeni bir hesap oluşturabilir.
+      operationId: registerStudent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              ornek:
+                summary: Örnek kayıt isteği
+                value:
+                  name: Doğan Coşman
+                  email: dogan@example.com
+                  password: Guvenli123!
+      responses:
+        '201':
+          description: Öğrenci hesabı başarıyla oluşturuldu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Bu e-posta adresi zaten kullanımda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: CONFLICT
+                message: Bu e-posta adresi zaten kullanımda
+
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: G2 — Giriş Yapma
+      description: Öğrenci, e-posta ve şifresiyle giriş yapar; başarılı girişte JWT token döner.
+      operationId: loginStudent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              ornek:
+                summary: Örnek giriş isteği
+                value:
+                  email: dogan@example.com
+                  password: Guvenli123!
+      responses:
+        '200':
+          description: Giriş başarılı — JWT token döndürülür
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ──────────────────────────────────────────────
+  # STUDENTS
+  # ──────────────────────────────────────────────
+
+  /students:
+    get:
+      tags:
+        - students
+      summary: G4 — Tüm Öğrencileri Listeleme
+      description: Yetkili kullanıcı, sisteme kayıtlı tüm öğrencilerin ad ve temel bilgilerini liste halinde görebilir.
+      operationId: listStudents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: Öğrenci listesi başarıyla döndürüldü
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /students/{studentId}:
+    get:
+      tags:
+        - students
+      summary: G3 — Öğrenci Profilini Görüntüleme
+      description: Öğrenci, kendi adını, e-postasını ve temel bilgilerini içeren profil sayfasını görebilir.
+      operationId: getStudentById
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/StudentIdParam'
+      responses:
+        '200':
+          description: Öğrenci profil bilgileri başarıyla döndürüldü
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ──────────────────────────────────────────────
+  # TEACHERS
+  # ──────────────────────────────────────────────
+
+  /teachers:
+    get:
+      tags:
+        - teachers
+      summary: G5 — Tüm Öğretmenleri Listeleme
+      description: Öğrenci, sistemdeki tüm öğretmenlerin adlarını ve verdikleri dersleri liste halinde görebilir.
+      operationId: listTeachers
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: subject
+          in: query
+          description: Ders adına göre filtrele
+          required: false
+          schema:
+            type: string
+            example: Matematik
+      responses:
+        '200':
+          description: Öğretmen listesi başarıyla döndürüldü
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeacherList'
+
+  # ──────────────────────────────────────────────
+  # APPOINTMENTS
+  # ──────────────────────────────────────────────
+
+  /appointments:
+    get:
+      tags:
+        - appointments
+      summary: G7 — Randevuları Listeleme
+      description: Öğrenci, sadece kendisine ait geçmiş ve gelecek tüm randevuları liste halinde görebilir.
+      operationId: listMyAppointments
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: status
+          in: query
+          description: Randevu durumuna göre filtrele
+          required: false
+          schema:
+            type: string
+            enum: [upcoming, past, cancelled]
+      responses:
+        '200':
+          description: Randevu listesi başarıyla döndürüldü
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppointmentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags:
+        - appointments
+      summary: G6 — Randevu Alma
+      description: Öğrenci, seçtiği öğretmen ve uygun saat için bir randevu oluşturabilir.
+      operationId: createAppointment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentCreate'
+            examples:
+              ornek:
+                summary: Örnek randevu oluşturma isteği
+                value:
+                  teacherId: t123
+                  date: "2026-03-15"
+                  time: "14:00"
+      responses:
+        '201':
+          description: Randevu başarıyla oluşturuldu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Seçilen saat dolu veya çakışıyor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: CONFLICT
+                message: Seçilen saat dolu veya başka bir randevuyla çakışıyor
+
+  /appointments/{appointmentId}:
+    put:
+      tags:
+        - appointments
+      summary: G8 — Randevu Güncelleme
+      description: Öğrenci, daha önce aldığı bir randevunun saatini veya tarihini uygun başka bir zamanla değiştirebilir.
+      operationId: updateAppointment
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AppointmentIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentUpdate'
+            examples:
+              ornek:
+                summary: Örnek güncelleme isteği
+                value:
+                  date: "2026-03-20"
+                  time: "10:00"
+      responses:
+        '200':
+          description: Randevu başarıyla güncellendi
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Yeni saat dolu veya çakışıyor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - appointments
+      summary: G9 — Randevu İptal Etme
+      description: Öğrenci, artık gitmek istemediği bir randevuyu sistemden iptal edebilir.
+      operationId: cancelAppointment
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AppointmentIdParam'
+      responses:
+        '204':
+          description: Randevu başarıyla iptal edildi
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /appointments/suggest:
+    post:
+      tags:
+        - appointments
+      summary: G10 — Randevu Önerisi Alma
+      description: >
+        Öğrenci, haftalık boş zamanlarını ve ders adını seçerek kendisi için en uygun
+        randevu saatlerini yapay zekâ tabanlı öneri sistemi aracılığıyla alabilir.
+      operationId: suggestAppointment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestRequest'
+            examples:
+              ornek:
+                summary: Örnek öneri isteği
+                value:
+                  lessonName: Matematik
+                  availableSlots:
+                    - Pazartesi 09:00-12:00
+                    - Çarşamba 14:00-17:00
+      responses:
+        '200':
+          description: Yapay zekâ tabanlı önerilen randevu saatleri başarıyla döndürüldü
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+# ──────────────────────────────────────────────
+# COMPONENTS
+# ──────────────────────────────────────────────
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JWT token ile kimlik doğrulama. Header'a 'Authorization: Bearer <token>' eklenmeli."
+
+  parameters:
+    StudentIdParam:
+      name: studentId
+      in: path
+      required: true
+      description: Öğrencinin benzersiz kimliği
+      schema:
+        type: string
+        example: s001
+
+    AppointmentIdParam:
+      name: appointmentId
+      in: path
+      required: true
+      description: Randevunun benzersiz kimliği
+      schema:
+        type: string
+        example: a789
+
+    PageParam:
+      name: page
+      in: query
+      description: Sayfa numarası (varsayılan 1)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+    LimitParam:
+      name: limit
+      in: query
+      description: Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+
+  schemas:
+
+    # ── Auth ──────────────────────────────────
+
+    RegisterRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          minLength: 2
+          description: Öğrencinin tam adı
+          example: Doğan Coşman
+        email:
+          type: string
+          format: email
+          description: E-posta adresi
+          example: dogan@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          description: Şifre (en az 8 karakter)
+          example: Guvenli123!
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: dogan@example.com
+        password:
+          type: string
+          format: password
+          example: Guvenli123!
+
+    AuthToken:
+      type: object
+      required:
+        - token
+        - expiresIn
+        - student
+      properties:
+        token:
+          type: string
+          description: JWT access token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresIn:
+          type: integer
+          description: Token geçerlilik süresi (saniye)
+          example: 3600
+        student:
+          $ref: '#/components/schemas/Student'
+
+    # ── Student ───────────────────────────────
+
+    Student:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - createdAt
+      properties:
+        id:
+          type: string
+          description: Öğrenci benzersiz kimliği
+          example: s001
+        name:
+          type: string
+          description: Öğrenci adı soyadı
+          example: Doğan Coşman
+        email:
+          type: string
+          format: email
+          description: E-posta adresi
+          example: dogan@example.com
+        createdAt:
+          type: string
+          format: date-time
+          description: Hesap oluşturulma tarihi
+          example: "2026-01-10T08:00:00Z"
+
+    StudentList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    # ── Teacher ───────────────────────────────
+
+    Teacher:
+      type: object
+      required:
+        - id
+        - name
+        - subjects
+      properties:
+        id:
+          type: string
+          description: Öğretmen benzersiz kimliği
+          example: t123
+        name:
+          type: string
+          description: Öğretmen adı soyadı
+          example: Ahmet Yıldız
+        subjects:
+          type: array
+          description: Verdiği dersler
+          items:
+            type: string
+          example:
+            - Matematik
+            - Fizik
+        bio:
+          type: string
+          description: Kısa biyografi
+          example: 10 yıllık deneyimli Matematik öğretmeni
+
+    TeacherList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Teacher'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    # ── Appointment ───────────────────────────
+
+    Appointment:
+      type: object
+      required:
+        - id
+        - studentId
+        - teacherId
+        - date
+        - time
+        - status
+        - createdAt
+      properties:
+        id:
+          type: string
+          description: Randevu benzersiz kimliği
+          example: a789
+        studentId:
+          type: string
+          description: Öğrencinin kimliği
+          example: s001
+        teacherId:
+          type: string
+          description: Öğretmenin kimliği
+          example: t123
+        teacherName:
+          type: string
+          description: Öğretmenin adı
+          example: Ahmet Yıldız
+        lessonName:
+          type: string
+          description: Ders adı
+          example: Matematik
+        date:
+          type: string
+          format: date
+          description: Randevu tarihi (YYYY-MM-DD)
+          example: "2026-03-15"
+        time:
+          type: string
+          description: Randevu saati (HH:MM)
+          example: "14:00"
+        status:
+          type: string
+          enum:
+            - upcoming
+            - past
+            - cancelled
+          description: Randevu durumu
+          example: upcoming
+        createdAt:
+          type: string
+          format: date-time
+          description: Randevu oluşturulma tarihi
+          example: "2026-03-01T10:00:00Z"
+
+    AppointmentCreate:
+      type: object
+      required:
+        - teacherId
+        - date
+        - time
+      properties:
+        teacherId:
+          type: string
+          description: Randevu alınacak öğretmenin kimliği
+          example: t123
+        date:
+          type: string
+          format: date
+          description: Randevu tarihi (YYYY-MM-DD)
+          example: "2026-03-15"
+        time:
+          type: string
+          description: Randevu saati (HH:MM)
+          example: "14:00"
+
+    AppointmentUpdate:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: Yeni randevu tarihi (YYYY-MM-DD)
+          example: "2026-03-20"
+        time:
+          type: string
+          description: Yeni randevu saati (HH:MM)
+          example: "10:00"
+
+    AppointmentList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    # ── AI Suggest ────────────────────────────
+
+    SuggestRequest:
+      type: object
+      required:
+        - lessonName
+        - availableSlots
+      properties:
+        lessonName:
+          type: string
+          description: Ders adı
+          example: Matematik
+        availableSlots:
+          type: array
+          description: Öğrencinin boş zaman dilimleri
+          minItems: 1
+          items:
+            type: string
+          example:
+            - Pazartesi 09:00-12:00
+            - Çarşamba 14:00-17:00
+
+    SuggestResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          description: Önerilen randevu saatleri listesi
+          items:
+            type: object
+            properties:
+              teacherId:
+                type: string
+                example: t123
+              teacherName:
+                type: string
+                example: Ahmet Yıldız
+              date:
+                type: string
+                format: date
+                example: "2026-03-17"
+              time:
+                type: string
+                example: "10:00"
+              score:
+                type: number
+                format: float
+                description: Yapay zekâ uyum skoru (0–1 arası)
+                example: 0.92
+
+    # ── Shared ────────────────────────────────
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: Mevcut sayfa
+          example: 1
+        limit:
+          type: integer
+          description: Sayfa başına kayıt
+          example: 20
+        totalPages:
+          type: integer
+          description: Toplam sayfa sayısı
+          example: 3
+        totalItems:
+          type: integer
+          description: Toplam kayıt sayısı
+          example: 42
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Hata kodu
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          description: Hata mesajı
+          example: Geçersiz e-posta adresi
+        details:
+          type: array
+          description: Detaylı hata bilgileri
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: email
+              message:
+                type: string
+                example: E-posta formatı geçersiz
+
+  responses:
+    BadRequest:
+      description: Geçersiz istek — parametre veya format hatası
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: BAD_REQUEST
+            message: İstek parametreleri geçersiz
+
+    Unauthorized:
+      description: Yetkisiz erişim — token eksik veya geçersiz
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: UNAUTHORIZED
+            message: Kimlik doğrulama başarısız
+
+    Forbidden:
+      description: Erişim reddedildi — bu işlem için yetki yok
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: FORBIDDEN
+            message: Bu işlem için yetkiniz bulunmamaktadır
+
+    NotFound:
+      description: Kaynak bulunamadı
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: NOT_FOUND
+            message: İstenen kaynak bulunamadı
