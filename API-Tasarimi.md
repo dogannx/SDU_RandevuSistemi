@@ -8,16 +8,16 @@ Bu doküman, Birebir Ders Randevu Sistemi için OpenAPI Specification (OAS) 3.0 
 
 | No | Gereksinim | HTTP Metodu | Endpoint |
 |---|---|---|---|
-| G1 | Kayıt Olma | `POST` | `/auth/register` |
-| G2 | Giriş Yapma | `POST` | `/auth/login` |
-| G3 | Öğrenci Profilini Görüntüleme | `GET` | `/students/{studentId}` |
-| G4 | Tüm Öğrencileri Listeleme | `GET` | `/students` |
-| G5 | Tüm Öğretmenleri Listeleme | `GET` | `/teachers` |
-| G6 | Randevu Alma | `POST` | `/appointments` |
-| G7 | Randevuları Listeleme | `GET` | `/appointments` |
-| G8 | Randevu Güncelleme | `PUT` | `/appointments/{appointmentId}` |
-| G9 | Randevu İptal Etme | `DELETE` | `/appointments/{appointmentId}` |
-| G10 | Randevu Önerisi Alma | `POST` | `/appointments/suggest` |
+| G1 | Kayıt Olma | `POST` | `/api/v1/auth/register` |
+| G2 | Giriş Yapma | `POST` | `/api/v1/auth/login` |
+| G3 | Öğrenci Profilini Görüntüleme | `GET` | `/api/v1/students/{studentId}` |
+| G4 | Tüm Öğrencileri Listeleme | `GET` | `/api/v1/students` |
+| G5 | Tüm Öğretmenleri Listeleme | `GET` | `/api/v1/teachers` |
+| G6 | Randevu Alma | `POST` | `/api/v1/appointments` |
+| G7 | Randevuları Listeleme | `GET` | `/api/v1/appointments` |
+| G8 | Randevu Güncelleme | `PUT` | `/api/v1/appointments/{appointmentId}` |
+| G9 | Randevu İptal Etme | `DELETE` | `/api/v1/appointments/{appointmentId}` |
+| G10 | Randevu Önerisi Alma | `POST` | `/api/v1/appointments/suggest` |
 
 ## OpenAPI Specification (YAML)
 
@@ -40,11 +40,7 @@ info:
     email: dogan@example.com
 
 servers:
-  - url: https://api.randevu.com/v1
-    description: Production sunucusu
-  - url: https://staging-api.randevu.com/v1
-    description: Staging sunucusu
-  - url: http://localhost:3000/v1
+  - url: http://localhost:8080/api/v1
     description: Yerel geliştirme sunucusu
 
 tags:

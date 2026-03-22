@@ -37,6 +37,10 @@ func Load() (*Config, error) {
 }
 
 func (c *Config) DSN() string {
+	// Render DATABASE_URL varsa onu kullan
+	if dbURL := os.Getenv("DATABASE_URL"); dbURL != "" {
+		return dbURL
+	}
 	return "postgres://" + c.DBUser + ":" + c.DBPassword + "@" + c.DBHost + ":" + c.DBPort + "/" + c.DBName + "?sslmode=disable"
 }
 

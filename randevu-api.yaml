@@ -16,11 +16,7 @@ info:
     email: dogan@example.com
 
 servers:
-  - url: https://api.randevu.com/v1
-    description: Production sunucusu
-  - url: https://staging-api.randevu.com/v1
-    description: Staging sunucusu
-  - url: http://localhost:3000/v1
+  - url: http://localhost:8080/api/v1
     description: Yerel geliştirme sunucusu
 
 tags:

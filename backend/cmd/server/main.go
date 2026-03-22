@@ -29,22 +29,22 @@ func main() {
 	db := database.NewPostgres(cfg)
 	defer db.Close()
 
-	if *migrate {
-		migrationsDir := findMigrationsDir()
-		if err := database.RunMigrations(db, migrationsDir); err != nil {
-			log.Fatalf("Migration hatası: %v", err)
-		}
-		log.Println("Migration'lar başarıyla uygulandı")
-		if !*seed {
-			return
-		}
+	// Her zaman migration ve seed çalıştır (IF NOT EXISTS ile güvenli)
+	migrationsDir := findMigrationsDir()
+	if err := database.RunMigrations(db, migrationsDir); err != nil {
+		log.Printf("Migration uyarı: %v", err)
+	}
+	if err := database.RunSeed(db); err != nil {
+		log.Printf("Seed uyarı: %v", err)
 	}
 
-	if *seed {
-		if err := database.RunSeed(db); err != nil {
-			log.Fatalf("Seed hatası: %v", err)
+	if *migrate || *seed {
+		if *migrate && !*seed {
+			return
 		}
-		return
+		if *seed {
+			return
+		}
 	}
 
 	// Repositories

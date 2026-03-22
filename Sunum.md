@@ -8,7 +8,7 @@
 
 ## Sunum Yapısı
 
-### 1. Grup Lideri - Açılış Konuşması (1-2 dakika)
+### 1. Açılış Konuşması (1-2 dakika)
 
 **Konuşma İçeriği:**
 - Grup adının tanıtılması
@@ -17,88 +17,88 @@
 - Sunumun yapısının kısaca açıklanması
 
 **Örnek Konuşma:**
-> "Merhaba, ben [Grup Lideri İsmi]. [Grup Adı] ekibi olarak [Proje Adı] projesini geliştirdik. Bu proje [kısa proje açıklaması]. Bugün sizlere projemizi ve ekibimizin çalışmalarını sunacağız. Her ekip üyesi kendini tanıtacak ve sorumlu olduğu gereksinimleri gösterecek."
+> "Merhaba, ben Doğan Coşman. DC Software olarak Birebir Ders Randevu Sistemi projesini geliştirdim. Bu proje, öğrencilerin öğretmenlerle birebir ders randevusu alabildiği bir web platformudur. Bugün sizlere projemi ve tüm gereksinimlerin çalışır halini göstereceğim."
 
 ---
 
-### 2. Ekip Üyeleri - Kişisel Tanıtım ve Gereksinim Sunumu
+### 2. Kişisel Tanıtım ve Gereksinim Sunumu
 
-Her ekip üyesi için aşağıdaki yapı takip edilecektir:
+#### Doğan Coşman
 
-#### Format (Her üye için 4-6 dakika)
+**Kişisel Tanıtım (30-45 saniye)**
+- İsim: Doğan Coşman
+- Grup: DC Software (tek kişi)
+- Sorumluluk: Backend (Go + Fiber), Frontend (Vue 3), Veritabanı (PostgreSQL)
+- Tüm 10 gereksinimin tasarımı ve implementasyonu
 
-**A) Kişisel Tanıtım (30-45 saniye)**
-- Yüz görünecek şekilde kamera karşısında
-- İsim ve soyisim
-- Ekipteki rolü
-- Sorumlu olduğu alan (Backend/Frontend/Mobil vb.)
+**Gereksinim Sunumu — Demo Senaryoları:**
 
-**B) Gereksinim Sunumu (3.5-5 dakika)**
-- Sorumlu olduğu gereksinimlerin listesi
-- Her gereksinimin kısa açıklaması
-- Canlı demo (ekran kaydı ile)
-- Her gereksinimin çalışır durumda olduğunun detaylı gösterilmesi
-- Her gereksinim için yeterli süre ayrılmalı (yaklaşık 1-1.5 dakika/gereksinim)
+1. **G1 — Kayıt Olma** (1 dakika)
+   - Endpoint: `POST /api/v1/auth/register`
+   - Demo: Kayıt ekranından ad, e-posta, şifre girerek yeni hesap oluştur
+   - Beklenen: 201 Created, JWT token döner, ana sayfaya yönlendirilir
+
+2. **G2 — Giriş Yapma** (1 dakika)
+   - Endpoint: `POST /api/v1/auth/login`
+   - Demo: Çıkış yap, ardından kayıtlı e-posta/şifre ile tekrar giriş yap
+   - Beklenen: 200 OK, JWT token döner, ana sayfaya yönlendirilir
+
+3. **G3 — Öğrenci Profilini Görüntüleme** (30 saniye)
+   - Endpoint: `GET /api/v1/students/{studentId}`
+   - Demo: Navbar'dan "Profilim" sayfasına git, ad/e-posta/kayıt tarihi göster
+
+4. **G4 — Tüm Öğrencileri Listeleme** (30 saniye)
+   - Endpoint: `GET /api/v1/students`
+   - Demo: Navbar'dan "Öğrenciler" sayfasına git, kayıtlı öğrenci listesini göster
+
+5. **G5 — Tüm Öğretmenleri Listeleme** (30 saniye)
+   - Endpoint: `GET /api/v1/teachers`
+   - Demo: Ana sayfadaki öğretmen listesini göster (ad, ders, biyografi)
+
+6. **G6 — Randevu Alma** (1 dakika)
+   - Endpoint: `POST /api/v1/appointments`
+   - Demo: "Randevularım" sayfasından yeni randevu oluştur (öğretmen seç, tarih/saat belirle)
+   - Beklenen: 201 Created, randevu listede görünür
+
+7. **G7 — Randevuları Listeleme** (30 saniye)
+   - Endpoint: `GET /api/v1/appointments`
+   - Demo: "Randevularım" sayfasında oluşturulan randevuların listesini göster
+
+8. **G8 — Randevu Güncelleme** (1 dakika)
+   - Endpoint: `PUT /api/v1/appointments/{appointmentId}`
+   - Demo: Mevcut bir randevunun "Düzenle" butonuna bas, tarih/saati değiştir, kaydet
+   - Beklenen: 200 OK, güncellenen bilgi listede yansır
+
+9. **G9 — Randevu İptal Etme** (30 saniye)
+   - Endpoint: `DELETE /api/v1/appointments/{appointmentId}`
+   - Demo: Bir randevunun "İptal Et" butonuna bas, onayla
+   - Beklenen: 204 No Content, randevu durumu "İptal" olarak görünür
+
+10. **G10 — Randevu Önerisi Alma** (1-2 dakika)
+    - Endpoint: `POST /api/v1/appointments/suggest`
+    - Demo: "AI Öneri" sayfasından ders adı (Matematik) ve müsait zaman dilimleri gir, "Öneri Al" butonuna bas
+    - Beklenen: Uygun öğretmen + tarih/saat önerileri listelenir, birini seçerek randevu al
 
 ---
 
-### 3. Ekip Üyeleri Sunum Sırası
-
-#### Ali Tutar
-**Kişisel Tanıtım:**
-- İsim: Ali Tutar
-
-**Gereksinimler:**
-1. **Üye Olma**
-   - API Metodu: `POST /auth/register`
-   - Demo: Kullanıcı kayıt işleminin gösterilmesi
-
-2. **Profil Görüntüleme**
-   - API Metodu: `GET /users/{userId}`
-   - Demo: Kullanıcı profil bilgilerinin görüntülenmesi
-
-3. **Profil Güncelleme**
-   - API Metodu: `PUT /users/{userId}`
-   - Demo: Profil bilgilerinin güncellenmesi
-
-4. **Hesap Silme**
-   - API Metodu: `DELETE /users/{userId}`
-   - Demo: Hesap silme işleminin gösterilmesi
-
----
-
-#### Veli Yılmaz
-**Kişisel Tanıtım:**
-- İsim: Veli Yılmaz
-- Rol: [Rol belirtilecek]
-
-**Gereksinimler:**
-- [Gereksinim 1]
-- [Gereksinim 2]
-- [Gereksinim 3]
-- [Gereksinim 4]
-
----
-
-### 4. Grup Lideri - Kapanış Konuşması (1 dakika)
+### 3. Kapanış Konuşması (1 dakika)
 
 **Konuşma İçeriği:**
 - Tüm gereksinimlerin tamamlandığının özeti
 - Projenin başarıyla tamamlandığının vurgulanması
 
 **Örnek Konuşma:**
-> "Bugün sizlere [Proje Adı] projemizi sunduk. Tüm ekip üyelerimiz sorumlu oldukları gereksinimleri başarıyla tamamladılar ve çalışır durumda gösterdiler. Projemiz [kısa özet]. Teşekkürler!"
+> "Bugün sizlere Birebir Ders Randevu Sistemi projemi sundum. Tüm 10 fonksiyonel gereksinim başarıyla tamamlandı ve çalışır durumda gösterildi. Backend Go + Fiber ile, frontend Vue 3 ile geliştirildi, veritabanı olarak PostgreSQL kullanıldı. Teşekkürler!"
 
 ---
 
 ## Sunum Hazırlık Kontrol Listesi
 
 ### Genel Hazırlık
-- [ ] Grup lideri açılış konuşmasını hazırladı
-- [ ] Her ekip üyesi kendi sunumunu hazırladı
+- [ ] Açılış konuşması hazırlandı
 - [ ] Tüm gereksinimler çalışır durumda
 - [ ] Demo senaryoları hazırlandı
-- [ ] Test verileri ve hesaplar hazırlandı
+- [ ] Test verileri ve hesaplar hazırlandı (seed öğretmenler + test öğrenci)
 
 ### Teknik Hazırlık
 - [ ] Video kayıt cihazı/kamera hazır
@@ -106,11 +106,13 @@ Her ekip üyesi için aşağıdaki yapı takip edilecektir:
 - [ ] Işıklandırma uygun
 - [ ] Arka plan düzenlendi
 - [ ] Ekran kayıt yazılımı hazır (demo için)
+- [ ] Backend çalışıyor (`make run`)
+- [ ] Frontend çalışıyor (`yarn dev`)
+- [ ] Veritabanı hazır (migration + seed yapıldı)
 
 ### Kişisel Hazırlık
-- [ ] Her ekip üyesi kendi bölümünü prova etti
-- [ ] Konuşma süreleri kontrol edildi
-- [ ] Gereksinimler ezberlendi veya notlar hazırlandı
+- [ ] Sunum prova edildi
+- [ ] Konuşma süresi kontrol edildi (toplam ~12-15 dakika)
 - [ ] Demo akışı prova edildi
 
 ---
@@ -134,10 +136,8 @@ Her ekip üyesi için aşağıdaki yapı takip edilecektir:
 
 ## Zaman Yönetimi
 
-- **Grup Lideri Açılış:** 1-2 dakika
-- **Her Ekip Üyesi:** 4-6 dakika
-  - Kişisel tanıtım: 30-45 saniye
-  - Gereksinim sunumu: 3.5-5 dakika
-    - Her gereksinim için: yaklaşık 1-1.5 dakika
-- **Grup Lideri Kapanış:** 1-2 dakika
-- **Toplam Süre:** Yaklaşık 30-40 dakika (5 kişilik ekip için)
+- **Açılış:** 1-2 dakika
+- **Kişisel tanıtım:** 30-45 saniye
+- **Gereksinim sunumu:** ~10 dakika (her gereksinim 30sn-2dk)
+- **Kapanış:** 1 dakika
+- **Toplam Süre:** Yaklaşık 12-15 dakika
