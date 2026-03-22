@@ -40,6 +40,8 @@ info:
     email: dogan@example.com
 
 servers:
+  - url: https://randevu-api-mic1.onrender.com/api/v1
+    description: Production sunucusu
   - url: http://localhost:8080/api/v1
     description: Yerel geliştirme sunucusu
 

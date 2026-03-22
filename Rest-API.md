@@ -1,6 +1,6 @@
 # REST API
 
-**REST API Adresi:** [........com](https://........com)
+**REST API Adresi:** [randevu-api-mic1.onrender.com](https://randevu-api-mic1.onrender.com)
 
 ## OpenAPI YAML Dosyası
 
