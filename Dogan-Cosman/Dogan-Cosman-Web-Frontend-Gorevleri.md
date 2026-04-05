@@ -1,6 +1,6 @@
 # Doğan Coşman'ın Web Frontend Görevleri
 
-**Web Frontend Demo Videosu:** [Link buraya eklenecek](https://example.com)
+**Web Frontend Demo Videosu:** [Web Frontend Demo Videosu](https://youtu.be/VQznhG9tUfI)
 
 ## Görevler
 

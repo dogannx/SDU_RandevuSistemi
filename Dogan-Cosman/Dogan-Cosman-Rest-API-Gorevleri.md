@@ -1,6 +1,6 @@
 # Doğan Coşman'ın REST API Metotları
 
-**API Test Videosu:** [Link buraya eklenecek](https://example.com)
+**API Test Videosu:** [API Test Videosu](https://youtu.be/VQznhG9tUfI)
 
 ## G1 — Kayıt Olma
 - **Endpoint:** `POST /api/v1/auth/register`
