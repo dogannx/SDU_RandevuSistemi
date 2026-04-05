@@ -1,0 +1,2124 @@
+{
+  "info": {
+    "_postman_id": "47d1b9be-87da-4658-ab44-77fab39bcdd4",
+    "name": "Birebir Ders Randevu Sistemi API",
+    "description": "Birebir Ders Randevu Sistemi için RESTful API.\n\n## Özellikler\n- Öğrenci kaydı ve girişi\n- Öğrenci ve öğretmen listeleme\n- Randevu oluşturma, listeleme, güncelleme ve iptal etme\n- Yapay zekâ tabanlı randevu önerisi\n- JWT tabanlı kimlik doğrulama\n\n\nContact Support:\n Name: Doğan Coşman\n Email: dogan@example.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39399714"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "register",
+          "item": [
+            {
+              "name": "G1 — Kayıt Olma",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Doğan Coşman\",\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                },
+                "description": "Öğrenci, sisteme adını, e-postasını ve şifresini girerek yeni bir hesap oluşturabilir."
+              },
+              "response": [
+                {
+                  "name": "Öğrenci hesabı başarıyla oluşturuldu",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Doğan Coşman\",\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": \"s001\",\n  \"name\": \"Doğan Coşman\",\n  \"email\": \"dogan@example.com\",\n  \"createdAt\": \"2026-01-10T08:00:00Z\"\n}"
+                },
+                {
+                  "name": "Geçersiz istek — parametre veya format hatası",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Doğan Coşman\",\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"BAD_REQUEST\",\n  \"message\": \"İstek parametreleri geçersiz\"\n}"
+                },
+                {
+                  "name": "Bu e-posta adresi zaten kullanımda",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Doğan Coşman\",\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"CONFLICT\",\n  \"message\": \"Bu e-posta adresi zaten kullanımda\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "item": [
+            {
+              "name": "G2 — Giriş Yapma",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                },
+                "description": "Öğrenci, e-posta ve şifresiyle giriş yapar; başarılı girişte JWT token döner."
+              },
+              "response": [
+                {
+                  "name": "Giriş başarılı — JWT token döndürülür",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"expiresIn\": 3600,\n  \"student\": {\n    \"id\": \"s001\",\n    \"name\": \"Doğan Coşman\",\n    \"email\": \"dogan@example.com\",\n    \"createdAt\": \"2026-01-10T08:00:00Z\"\n  }\n}"
+                },
+                {
+                  "name": "Yetkisiz erişim — token eksik veya geçersiz",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"dogan@example.com\",\n  \"password\": \"Guvenli123!\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "students",
+      "item": [
+        {
+          "name": "{studentId}",
+          "item": [
+            {
+              "name": "G3 — Öğrenci Profilini Görüntüleme",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/students/:studentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "students",
+                    ":studentId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "studentId",
+                      "value": "s001",
+                      "description": "Öğrencinin benzersiz kimliği"
+                    }
+                  ]
+                },
+                "description": "Öğrenci, kendi adını, e-postasını ve temel bilgilerini içeren profil sayfasını görebilir."
+              },
+              "response": [
+                {
+                  "name": "Öğrenci profil bilgileri başarıyla döndürüldü",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/students/:studentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "students",
+                        ":studentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "studentId",
+                          "value": "s001",
+                          "description": "Öğrencinin benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": \"s001\",\n  \"name\": \"Doğan Coşman\",\n  \"email\": \"dogan@example.com\",\n  \"createdAt\": \"2026-01-10T08:00:00Z\"\n}"
+                },
+                {
+                  "name": "Yetkisiz erişim — token eksik veya geçersiz",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/students/:studentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "students",
+                        ":studentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "studentId",
+                          "value": "s001",
+                          "description": "Öğrencinin benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+                },
+                {
+                  "name": "Erişim reddedildi — bu işlem için yetki yok",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/students/:studentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "students",
+                        ":studentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "studentId",
+                          "value": "s001",
+                          "description": "Öğrencinin benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Bu işlem için yetkiniz bulunmamaktadır\"\n}"
+                },
+                {
+                  "name": "Kaynak bulunamadı",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/students/:studentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "students",
+                        ":studentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "studentId",
+                          "value": "s001",
+                          "description": "Öğrencinin benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"İstenen kaynak bulunamadı\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "G4 — Tüm Öğrencileri Listeleme",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/students?page=1&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Sayfa numarası (varsayılan 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)"
+                }
+              ]
+            },
+            "description": "Yetkili kullanıcı, sisteme kayıtlı tüm öğrencilerin ad ve temel bilgilerini liste halinde görebilir."
+          },
+          "response": [
+            {
+              "name": "Öğrenci listesi başarıyla döndürüldü",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/students?page=1&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "students"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sayfa numarası (varsayılan 1)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"s001\",\n      \"name\": \"Doğan Coşman\",\n      \"email\": \"dogan@example.com\",\n      \"createdAt\": \"2026-01-10T08:00:00Z\"\n    },\n    {\n      \"id\": \"s001\",\n      \"name\": \"Doğan Coşman\",\n      \"email\": \"dogan@example.com\",\n      \"createdAt\": \"2026-01-10T08:00:00Z\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 20,\n    \"totalPages\": 3,\n    \"totalItems\": 42\n  }\n}"
+            },
+            {
+              "name": "Yetkisiz erişim — token eksik veya geçersiz",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/students?page=1&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "students"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sayfa numarası (varsayılan 1)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+            },
+            {
+              "name": "Erişim reddedildi — bu işlem için yetki yok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/students?page=1&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "students"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sayfa numarası (varsayılan 1)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Bu işlem için yetkiniz bulunmamaktadır\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "teachers",
+      "item": [
+        {
+          "name": "G5 — Tüm Öğretmenleri Listeleme",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teachers?page=1&limit=20&subject=Matematik",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teachers"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Sayfa numarası (varsayılan 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)"
+                },
+                {
+                  "key": "subject",
+                  "value": "Matematik",
+                  "description": "Ders adına göre filtrele"
+                }
+              ]
+            },
+            "description": "Öğrenci, sistemdeki tüm öğretmenlerin adlarını ve verdikleri dersleri liste halinde görebilir."
+          },
+          "response": [
+            {
+              "name": "Öğretmen listesi başarıyla döndürüldü",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/teachers?page=1&limit=20&subject=Matematik",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teachers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sayfa numarası (varsayılan 1)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)",
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Ders adına göre filtrele",
+                      "key": "subject",
+                      "value": "Matematik"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"t123\",\n      \"name\": \"Ahmet Yıldız\",\n      \"subjects\": [\n        \"Matematik\",\n        \"Fizik\"\n      ],\n      \"bio\": \"10 yıllık deneyimli Matematik öğretmeni\"\n    },\n    {\n      \"id\": \"t123\",\n      \"name\": \"Ahmet Yıldız\",\n      \"subjects\": [\n        \"Matematik\",\n        \"Fizik\"\n      ],\n      \"bio\": \"10 yıllık deneyimli Matematik öğretmeni\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 20,\n    \"totalPages\": 3,\n    \"totalItems\": 42\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "appointments",
+      "item": [
+        {
+          "name": "{appointmentId}",
+          "item": [
+            {
+              "name": "G8 — Randevu Güncelleme",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appointments/:appointmentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments",
+                    ":appointmentId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "appointmentId",
+                      "value": "a789",
+                      "description": "Randevunun benzersiz kimliği"
+                    }
+                  ]
+                },
+                "description": "Öğrenci, daha önce aldığı bir randevunun saatini veya tarihini uygun başka bir zamanla değiştirebilir."
+              },
+              "response": [
+                {
+                  "name": "Randevu başarıyla güncellendi",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": \"a789\",\n  \"studentId\": \"s001\",\n  \"teacherId\": \"t123\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\",\n  \"status\": \"upcoming\",\n  \"createdAt\": \"2026-03-01T10:00:00Z\",\n  \"teacherName\": \"Ahmet Yıldız\",\n  \"lessonName\": \"Matematik\"\n}"
+                },
+                {
+                  "name": "Geçersiz istek — parametre veya format hatası",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"BAD_REQUEST\",\n  \"message\": \"İstek parametreleri geçersiz\"\n}"
+                },
+                {
+                  "name": "Yetkisiz erişim — token eksik veya geçersiz",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+                },
+                {
+                  "name": "Erişim reddedildi — bu işlem için yetki yok",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Bu işlem için yetkiniz bulunmamaktadır\"\n}"
+                },
+                {
+                  "name": "Kaynak bulunamadı",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"İstenen kaynak bulunamadı\"\n}"
+                },
+                {
+                  "name": "Yeni saat dolu veya çakışıyor",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"2026-03-20\",\n  \"time\": \"10:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Geçersiz e-posta adresi\",\n  \"details\": [\n    {\n      \"field\": \"email\",\n      \"message\": \"E-posta formatı geçersiz\"\n    },\n    {\n      \"field\": \"email\",\n      \"message\": \"E-posta formatı geçersiz\"\n    }\n  ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "G9 — Randevu İptal Etme",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/appointments/:appointmentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments",
+                    ":appointmentId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "appointmentId",
+                      "value": "a789",
+                      "description": "Randevunun benzersiz kimliği"
+                    }
+                  ]
+                },
+                "description": "Öğrenci, artık gitmek istemediği bir randevuyu sistemden iptal edebilir."
+              },
+              "response": [
+                {
+                  "name": "Randevu başarıyla iptal edildi",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Yetkisiz erişim — token eksik veya geçersiz",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+                },
+                {
+                  "name": "Erişim reddedildi — bu işlem için yetki yok",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Bu işlem için yetkiniz bulunmamaktadır\"\n}"
+                },
+                {
+                  "name": "Kaynak bulunamadı",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/:appointmentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        ":appointmentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "appointmentId",
+                          "value": "a789",
+                          "description": "Randevunun benzersiz kimliği"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"İstenen kaynak bulunamadı\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "suggest",
+          "item": [
+            {
+              "name": "G10 — Randevu Önerisi Alma",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lessonName\": \"Matematik\",\n  \"availableSlots\": [\n    \"Pazartesi 09:00-12:00\",\n    \"Çarşamba 14:00-17:00\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appointments/suggest",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments",
+                    "suggest"
+                  ]
+                },
+                "description": "Öğrenci, haftalık boş zamanlarını ve ders adını seçerek kendisi için en uygun randevu saatlerini yapay zekâ tabanlı öneri sistemi aracılığıyla alabilir.\n"
+              },
+              "response": [
+                {
+                  "name": "Yapay zekâ tabanlı önerilen randevu saatleri başarıyla döndürüldü",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"lessonName\": \"Matematik\",\n  \"availableSlots\": [\n    \"Pazartesi 09:00-12:00\",\n    \"Çarşamba 14:00-17:00\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/suggest",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        "suggest"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"suggestions\": [\n    {\n      \"teacherId\": \"t123\",\n      \"teacherName\": \"Ahmet Yıldız\",\n      \"date\": \"2026-03-17\",\n      \"time\": \"10:00\",\n      \"score\": 0.92\n    },\n    {\n      \"teacherId\": \"t123\",\n      \"teacherName\": \"Ahmet Yıldız\",\n      \"date\": \"2026-03-17\",\n      \"time\": \"10:00\",\n      \"score\": 0.92\n    }\n  ]\n}"
+                },
+                {
+                  "name": "Geçersiz istek — parametre veya format hatası",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"lessonName\": \"Matematik\",\n  \"availableSlots\": [\n    \"Pazartesi 09:00-12:00\",\n    \"Çarşamba 14:00-17:00\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/suggest",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        "suggest"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"BAD_REQUEST\",\n  \"message\": \"İstek parametreleri geçersiz\"\n}"
+                },
+                {
+                  "name": "Yetkisiz erişim — token eksik veya geçersiz",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"lessonName\": \"Matematik\",\n  \"availableSlots\": [\n    \"Pazartesi 09:00-12:00\",\n    \"Çarşamba 14:00-17:00\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/appointments/suggest",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appointments",
+                        "suggest"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "G7 — Randevuları Listeleme",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/appointments?page=1&limit=20&status=cancelled",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Sayfa numarası (varsayılan 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)"
+                },
+                {
+                  "key": "status",
+                  "value": "cancelled",
+                  "description": "Randevu durumuna göre filtrele"
+                }
+              ]
+            },
+            "description": "Öğrenci, sadece kendisine ait geçmiş ve gelecek tüm randevuları liste halinde görebilir."
+          },
+          "response": [
+            {
+              "name": "Randevu listesi başarıyla döndürüldü",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/appointments?page=1&limit=20&status=cancelled",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sayfa numarası (varsayılan 1)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)",
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Randevu durumuna göre filtrele",
+                      "key": "status",
+                      "value": "cancelled"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"a789\",\n      \"studentId\": \"s001\",\n      \"teacherId\": \"t123\",\n      \"date\": \"2026-03-15\",\n      \"time\": \"14:00\",\n      \"status\": \"upcoming\",\n      \"createdAt\": \"2026-03-01T10:00:00Z\",\n      \"teacherName\": \"Ahmet Yıldız\",\n      \"lessonName\": \"Matematik\"\n    },\n    {\n      \"id\": \"a789\",\n      \"studentId\": \"s001\",\n      \"teacherId\": \"t123\",\n      \"date\": \"2026-03-15\",\n      \"time\": \"14:00\",\n      \"status\": \"upcoming\",\n      \"createdAt\": \"2026-03-01T10:00:00Z\",\n      \"teacherName\": \"Ahmet Yıldız\",\n      \"lessonName\": \"Matematik\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 20,\n    \"totalPages\": 3,\n    \"totalItems\": 42\n  }\n}"
+            },
+            {
+              "name": "Yetkisiz erişim — token eksik veya geçersiz",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/appointments?page=1&limit=20&status=cancelled",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sayfa numarası (varsayılan 1)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sayfa başına kayıt sayısı (varsayılan 20, maksimum 100)",
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Randevu durumuna göre filtrele",
+                      "key": "status",
+                      "value": "cancelled"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "G6 — Randevu Alma",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjkxOGM1YzYtN2ViMy00ZWY5LTkzYzMtYWEzYjBkYjExNzA1IiwiZW1haWwiOiJkb2dhbkBleGFtcGxlLmNvbSIsImV4cCI6MTc3NTQxNjQ3OSwiaWF0IjoxNzc1NDE1NTc5fQ.OCigeScQ3gwVw357hKDT-5iQgh5hSTWhA1PVdyz8lYc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teacherId\": \"3175ecc6-df88-4ef4-8418-1794ff064343\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://randevu-api-mic1.onrender.com/api/v1/appointments",
+              "protocol": "https",
+              "host": [
+                "randevu-api-mic1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "appointments"
+              ]
+            },
+            "description": "Öğrenci, seçtiği öğretmen ve uygun saat için bir randevu oluşturabilir."
+          },
+          "response": [
+            {
+              "name": "Randevu başarıyla oluşturuldu",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teacherId\": \"t123\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appointments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": \"a789\",\n  \"studentId\": \"s001\",\n  \"teacherId\": \"t123\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\",\n  \"status\": \"upcoming\",\n  \"createdAt\": \"2026-03-01T10:00:00Z\",\n  \"teacherName\": \"Ahmet Yıldız\",\n  \"lessonName\": \"Matematik\"\n}"
+            },
+            {
+              "name": "Geçersiz istek — parametre veya format hatası",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teacherId\": \"t123\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appointments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"BAD_REQUEST\",\n  \"message\": \"İstek parametreleri geçersiz\"\n}"
+            },
+            {
+              "name": "Yetkisiz erişim — token eksik veya geçersiz",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teacherId\": \"t123\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appointments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Kimlik doğrulama başarısız\"\n}"
+            },
+            {
+              "name": "Seçilen saat dolu veya çakışıyor",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teacherId\": \"t123\",\n  \"date\": \"2026-03-15\",\n  \"time\": \"14:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appointments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appointments"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"CONFLICT\",\n  \"message\": \"Seçilen saat dolu veya başka bir randevuyla çakışıyor\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://randevu-api-mic1.onrender.com/api/v1"
+    }
+  ]
+}
