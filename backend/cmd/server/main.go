@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/config"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/database"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/handler"
+	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/queue"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/repository"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/router"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/service"
@@ -32,6 +34,9 @@ func main() {
 
 	redisCache := cache.NewRedisClient(cfg.RedisURL)
 	defer redisCache.Close()
+
+	rabbit := queue.NewRabbitMQ(cfg.RabbitMQURL)
+	defer rabbit.Close()
 
 	// Her zaman migration ve seed çalıştır (IF NOT EXISTS ile güvenli)
 	migrationsDir := findMigrationsDir()
@@ -60,7 +65,17 @@ func main() {
 	authService := service.NewAuthService(studentRepo, cfg.JWTSecret)
 	studentService := service.NewStudentService(studentRepo)
 	teacherService := service.NewTeacherService(teacherRepo)
-	apptService := service.NewAppointmentService(apptRepo, teacherRepo)
+	apptService := service.NewAppointmentService(apptRepo, teacherRepo, rabbit)
+
+	if rabbit.Enabled() {
+		consumerCtx, cancelConsumer := context.WithCancel(context.Background())
+		defer cancelConsumer()
+		if err := rabbit.Consume(consumerCtx, queue.AppointmentCreatedQueue, func(body []byte) {
+			log.Printf("[QUEUE CONSUME] %s → %s", queue.AppointmentCreatedQueue, string(body))
+		}); err != nil {
+			log.Printf("Consumer başlatılamadı: %v", err)
+		}
+	}
 
 	// Handlers
 	authHandler := handler.NewAuthHandler(authService)

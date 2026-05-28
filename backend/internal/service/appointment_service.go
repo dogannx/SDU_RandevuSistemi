@@ -4,9 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/model"
+	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/queue"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/repository"
 )
 
@@ -20,12 +22,14 @@ var (
 type appointmentService struct {
 	apptRepo    *repository.AppointmentRepository
 	teacherRepo *repository.TeacherRepository
+	publisher   queue.Publisher
 }
 
-func NewAppointmentService(apptRepo *repository.AppointmentRepository, teacherRepo *repository.TeacherRepository) AppointmentService {
+func NewAppointmentService(apptRepo *repository.AppointmentRepository, teacherRepo *repository.TeacherRepository, publisher queue.Publisher) AppointmentService {
 	return &appointmentService{
 		apptRepo:    apptRepo,
 		teacherRepo: teacherRepo,
+		publisher:   publisher,
 	}
 }
 
@@ -55,7 +59,27 @@ func (s *appointmentService) Create(ctx context.Context, studentID string, req m
 		return nil, err
 	}
 
-	return s.apptRepo.FindByID(ctx, appt.ID)
+	created, err := s.apptRepo.FindByID(ctx, appt.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	if s.publisher != nil && s.publisher.Enabled() {
+		event := map[string]any{
+			"appointmentId": created.ID,
+			"studentId":     created.StudentID,
+			"teacherId":     created.TeacherID,
+			"date":          created.Date,
+			"time":          created.Time,
+		}
+		if err := s.publisher.Publish(ctx, queue.AppointmentCreatedQueue, event); err != nil {
+			log.Printf("[QUEUE PUBLISH ERROR] %v", err)
+		} else {
+			log.Printf("[QUEUE PUBLISH] %s → %s", queue.AppointmentCreatedQueue, created.ID)
+		}
+	}
+
+	return created, nil
 }
 
 func (s *appointmentService) GetByStudentID(ctx context.Context, studentID string) ([]model.Appointment, error) {
