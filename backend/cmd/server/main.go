@@ -8,6 +8,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/cache"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/config"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/database"
 	"github.com/dogannx/SDU_RandevuSistemi/backend/internal/handler"
@@ -29,6 +30,9 @@ func main() {
 	db := database.NewPostgres(cfg)
 	defer db.Close()
 
+	redisCache := cache.NewRedisClient(cfg.RedisURL)
+	defer redisCache.Close()
+
 	// Her zaman migration ve seed çalıştır (IF NOT EXISTS ile güvenli)
 	migrationsDir := findMigrationsDir()
 	if err := database.RunMigrations(db, migrationsDir); err != nil {
@@ -49,7 +53,7 @@ func main() {
 
 	// Repositories
 	studentRepo := repository.NewStudentRepository(db)
-	teacherRepo := repository.NewTeacherRepository(db)
+	teacherRepo := repository.NewTeacherRepository(db, redisCache)
 	apptRepo := repository.NewAppointmentRepository(db)
 
 	// Services

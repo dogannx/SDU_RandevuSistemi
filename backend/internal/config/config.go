@@ -16,6 +16,8 @@ type Config struct {
 	JWTSecret        string
 	JWTRefreshSecret string
 
+	RedisURL string
+
 	AppPort string
 	AppEnv  string
 }
@@ -31,6 +33,7 @@ func Load() (*Config, error) {
 		DBPassword:       getEnv("DB_PASSWORD", "postgres123"),
 		JWTSecret:        getEnv("JWT_SECRET", "secret"),
 		JWTRefreshSecret: getEnv("JWT_REFRESH_SECRET", "refresh-secret"),
+		RedisURL:         getEnv("REDIS_URL", "redis://localhost:6379"),
 		AppPort:          getEnv("APP_PORT", "8080"),
 		AppEnv:           getEnv("APP_ENV", "development"),
 	}, nil
