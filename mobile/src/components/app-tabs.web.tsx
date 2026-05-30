@@ -30,6 +30,9 @@ export default function AppTabs() {
           <TabTrigger name="appointments" href="/appointments" asChild>
             <TabButton>Randevular</TabButton>
           </TabTrigger>
+          <TabTrigger name="suggest" href="/suggest" asChild>
+            <TabButton>Öneri</TabButton>
+          </TabTrigger>
         </CustomTabList>
       </TabList>
     </Tabs>

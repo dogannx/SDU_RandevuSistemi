@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 
 const ACCESS_TOKEN_KEY = 'randevu_access_token';
+const STUDENT_KEY = 'randevu_student';
 
 const baseURL =
   (Constants.expoConfig?.extra?.apiBaseUrl as string | undefined) ??
@@ -31,4 +32,17 @@ export async function clearAccessToken() {
 
 export async function getAccessToken() {
   return SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
+}
+
+export async function saveStudent(student: unknown) {
+  await SecureStore.setItemAsync(STUDENT_KEY, JSON.stringify(student));
+}
+
+export async function getStudent<T = unknown>(): Promise<T | null> {
+  const raw = await SecureStore.getItemAsync(STUDENT_KEY);
+  return raw ? (JSON.parse(raw) as T) : null;
+}
+
+export async function clearStudent() {
+  await SecureStore.deleteItemAsync(STUDENT_KEY);
 }

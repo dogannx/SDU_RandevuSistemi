@@ -1,45 +1,79 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useAuth } from '@/contexts/auth-context';
 
 export default function HomeScreen() {
   const { student, logout } = useAuth();
+  const router = useRouter();
 
   return (
     <SafeAreaView style={styles.safe}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Birebir Ders Randevu Sistemi</Text>
-        <Text style={styles.subtitle}>
-          Hoş geldin{student?.name ? `, ${student.name}` : ''}!
-        </Text>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Profil</Text>
 
-        <View style={styles.placeholder}>
-          <Text style={styles.placeholderText}>
-            Öğretmenler, randevular ve AI öneri sayfaları sonraki fazlarda gelecek.
-          </Text>
+        <View style={styles.card}>
+          <Text style={styles.label}>Ad Soyad</Text>
+          <Text style={styles.value}>{student?.name ?? '—'}</Text>
+
+          <View style={styles.divider} />
+
+          <Text style={styles.label}>E-posta</Text>
+          <Text style={styles.value}>{student?.email ?? '—'}</Text>
+
+          {student?.createdAt && (
+            <>
+              <View style={styles.divider} />
+              <Text style={styles.label}>Kayıt Tarihi</Text>
+              <Text style={styles.value}>
+                {new Date(student.createdAt).toLocaleDateString('tr-TR')}
+              </Text>
+            </>
+          )}
         </View>
+
+        <TouchableOpacity
+          style={styles.linkButton}
+          onPress={() => router.push('/students')}>
+          <Text style={styles.linkButtonText}>Tüm Öğrenciler</Text>
+          <Text style={styles.chev}>›</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={styles.logoutButton} onPress={logout}>
           <Text style={styles.logoutText}>Çıkış Yap</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: '#fff' },
-  container: { flex: 1, padding: 24, justifyContent: 'center' },
-  title: { fontSize: 24, fontWeight: '700', color: '#111827' },
-  subtitle: { fontSize: 16, color: '#6b7280', marginTop: 8, marginBottom: 32 },
-  placeholder: {
-    backgroundColor: '#f3f4f6',
+  container: { padding: 24, paddingTop: 48 },
+  title: { fontSize: 28, fontWeight: '700', color: '#111827', marginBottom: 24 },
+  card: {
+    backgroundColor: '#f9fafb',
     borderRadius: 12,
     padding: 20,
-    marginBottom: 32,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    marginBottom: 24,
   },
-  placeholderText: { color: '#374151', lineHeight: 22 },
+  label: { fontSize: 12, color: '#6b7280', fontWeight: '600', textTransform: 'uppercase' },
+  value: { fontSize: 16, color: '#111827', marginTop: 4 },
+  divider: { height: 1, backgroundColor: '#e5e7eb', marginVertical: 14 },
+  linkButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#eff6ff',
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 24,
+  },
+  linkButtonText: { color: '#2563eb', fontWeight: '600', fontSize: 16 },
+  chev: { color: '#2563eb', fontSize: 22, fontWeight: '600' },
   logoutButton: {
     borderWidth: 1,
     borderColor: '#dc2626',

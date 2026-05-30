@@ -1,11 +1,20 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
-import { api, clearAccessToken, getAccessToken, saveAccessToken } from '@/lib/api';
+import {
+  api,
+  clearAccessToken,
+  clearStudent,
+  getAccessToken,
+  getStudent,
+  saveAccessToken,
+  saveStudent,
+} from '@/lib/api';
 
 type Student = {
   id: string;
   name: string;
   email: string;
+  createdAt?: string;
 };
 
 type AuthContextValue = {
@@ -26,34 +35,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const stored = await getAccessToken();
-      if (stored) {
-        setToken(stored);
-      }
+      const [storedToken, storedStudent] = await Promise.all([
+        getAccessToken(),
+        getStudent<Student>(),
+      ]);
+      if (storedToken) setToken(storedToken);
+      if (storedStudent) setStudent(storedStudent);
       setIsLoading(false);
     })();
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
     const { data } = await api.post('/auth/login', { email, password });
-    const accessToken = data.data?.accessToken ?? data.accessToken;
-    const studentInfo = data.data?.student ?? data.student;
-    await saveAccessToken(accessToken);
-    setToken(accessToken);
-    setStudent(studentInfo);
+    const payload = data.data ?? data;
+    await saveAccessToken(payload.token);
+    await saveStudent(payload.student);
+    setToken(payload.token);
+    setStudent(payload.student);
   }, []);
 
   const register = useCallback(async (name: string, email: string, password: string) => {
     const { data } = await api.post('/auth/register', { name, email, password });
-    const accessToken = data.data?.accessToken ?? data.accessToken;
-    const studentInfo = data.data?.student ?? data.student;
-    await saveAccessToken(accessToken);
-    setToken(accessToken);
-    setStudent(studentInfo);
+    const payload = data.data ?? data;
+    await saveAccessToken(payload.token);
+    await saveStudent(payload.student);
+    setToken(payload.token);
+    setStudent(payload.student);
   }, []);
 
   const logout = useCallback(async () => {
-    await clearAccessToken();
+    await Promise.all([clearAccessToken(), clearStudent()]);
     setToken(null);
     setStudent(null);
   }, []);
