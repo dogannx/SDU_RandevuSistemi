@@ -4,7 +4,7 @@
     "slug": "randevu-sistemi",
     "version": "1.0.0",
     "extra": {
-      "apiBaseUrl": "https://randevu-api-mic1.onrender.com/api/v1",
+      "apiBaseUrl": "https://sdu-randevusistemi.onrender.com/api/v1",
       "router": {},
       "eas": {
         "projectId": "4fab2be1-5603-47cd-b402-062f1756d1b4"
