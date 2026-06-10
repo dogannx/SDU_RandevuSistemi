@@ -1,6 +1,6 @@
 # REST API
 
-**REST API Adresi:** [randevu-api-mic1.onrender.com](https://randevu-api-mic1.onrender.com)
+**REST API Adresi:** [sdu-randevusistemi.onrender.com](https://sdu-randevusistemi.onrender.com)
 
 ## OpenAPI YAML Dosyası
 

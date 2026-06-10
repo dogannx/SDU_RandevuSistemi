@@ -7,7 +7,7 @@ const STUDENT_KEY = 'randevu_student';
 
 const baseURL =
   (Constants.expoConfig?.extra?.apiBaseUrl as string | undefined) ??
-  'https://randevu-api-mic1.onrender.com/api/v1';
+  'https://sdu-randevusistemi.onrender.com/api/v1';
 
 export const api = axios.create({
   baseURL,

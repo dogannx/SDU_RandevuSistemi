@@ -1890,10 +1890,10 @@
               }
             },
             "url": {
-              "raw": "https://randevu-api-mic1.onrender.com/api/v1/appointments",
+              "raw": "https://sdu-randevusistemi.onrender.com/api/v1/appointments",
               "protocol": "https",
               "host": [
-                "randevu-api-mic1",
+                "sdu-randevusistemi",
                 "onrender",
                 "com"
               ],
@@ -2118,7 +2118,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "https://randevu-api-mic1.onrender.com/api/v1"
+      "value": "https://sdu-randevusistemi.onrender.com/api/v1"
     }
   ]
 }

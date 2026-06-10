@@ -19,7 +19,7 @@ Eğitim Teknolojileri / Randevu Yönetim Sistemi
 
 | Bağlantı | Adres |
 |---|---|
-| REST API Adresi | [randevu-api-mic1.onrender.com](https://randevu-api-mic1.onrender.com) |
+| REST API Adresi | [sdu-randevusistemi.onrender.com](https://sdu-randevusistemi.onrender.com) |
 | Web Frontend Adresi | [randevu-frontend-jejw.onrender.com](https://randevu-frontend-jejw.onrender.com) |
 
 ---

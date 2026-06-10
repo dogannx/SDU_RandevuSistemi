@@ -1,6 +1,6 @@
 # Mobil Backend (REST API Bağlantısı) Görev Dağılımı
 
-**REST API Adresi:** [randevu-api-mic1.onrender.com](https://randevu-api-mic1.onrender.com)
+**REST API Adresi:** [sdu-randevusistemi.onrender.com](https://sdu-randevusistemi.onrender.com)
 
 Bu dokümanda, mobil uygulamanın REST API ile iletişimini sağlayan backend entegrasyon görevleri listelenmektedir. Her grup üyesi, kendisine atanan API endpoint'lerinin mobil uygulamadan çağrılması ve yönetilmesinden sorumludur.
 
