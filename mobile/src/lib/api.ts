@@ -14,13 +14,33 @@ export const api = axios.create({
   timeout: 15000,
 });
 
+function isPublicPath(url: string | undefined): boolean {
+  if (!url) return false;
+  return url.startsWith('/auth/') || url === '/teachers';
+}
+
 api.interceptors.request.use(async (config) => {
   const token = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
+  if (!token && !isPublicPath(config.url)) {
+    return Promise.reject({ __silent: true, message: 'no-token' });
+  }
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
+
+api.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    if (err?.response?.status === 401) {
+      await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
+      await SecureStore.deleteItemAsync(STUDENT_KEY);
+      err.__silent = true;
+    }
+    return Promise.reject(err);
+  },
+);
 
 export async function saveAccessToken(token: string) {
   await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, token);

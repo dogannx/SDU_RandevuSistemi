@@ -62,6 +62,7 @@ export default function SuggestScreen() {
         Alert.alert('Sonuç yok', 'Bu ders ve slotlar için öneri bulunamadı.');
       }
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Öneri alınamadı');
     } finally {
       setLoading(false);
@@ -81,6 +82,7 @@ export default function SuggestScreen() {
         prev.filter((x) => !(x.teacherId === s.teacherId && x.date === s.date && x.time === s.time)),
       );
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Randevu oluşturulamadı');
     } finally {
       setBooking(null);

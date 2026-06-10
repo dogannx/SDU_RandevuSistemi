@@ -39,6 +39,7 @@ export default function AppointmentsScreen() {
       const { data } = await api.get('/appointments');
       setItems(data.data ?? []);
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Randevular yüklenemedi');
     }
   }, []);
@@ -81,6 +82,7 @@ export default function AppointmentsScreen() {
       closeEdit();
       await load();
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Randevu güncellenemedi');
     } finally {
       setSubmitting(false);
@@ -101,6 +103,7 @@ export default function AppointmentsScreen() {
               await api.delete(`/appointments/${a.id}`);
               await load();
             } catch (err: any) {
+              if (err?.__silent) return;
               Alert.alert('Hata', err?.response?.data?.error ?? 'İptal edilemedi');
             }
           },

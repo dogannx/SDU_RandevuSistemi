@@ -36,6 +36,7 @@ export default function TeachersScreen() {
       const { data } = await api.get('/teachers');
       setTeachers(data.data ?? []);
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Öğretmenler yüklenemedi');
     }
   }, []);
@@ -79,6 +80,7 @@ export default function TeachersScreen() {
       closeBooking();
       Alert.alert('Başarılı', 'Randevu oluşturuldu.');
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Randevu oluşturulamadı');
     } finally {
       setSubmitting(false);

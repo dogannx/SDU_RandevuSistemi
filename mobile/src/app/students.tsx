@@ -30,6 +30,7 @@ export default function StudentsScreen() {
       const { data } = await api.get('/students');
       setItems(data.data ?? []);
     } catch (err: any) {
+      if (err?.__silent) return;
       Alert.alert('Hata', err?.response?.data?.error ?? 'Öğrenciler yüklenemedi');
     }
   }, []);
